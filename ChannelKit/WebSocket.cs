@@ -1,4 +1,6 @@
-﻿using WatsonWebsocket;
+﻿using System.Text;
+
+using WatsonWebsocket;
 
 namespace ChannelKit
 {
@@ -41,7 +43,12 @@ namespace ChannelKit
         {
             Console.WriteLine(e.MessageType);
             Console.WriteLine(BitConverter.ToString(e.Data.ToArray()));
-            
+
+            var x  = UTF8Encoding.UTF8.GetString(e.Data);
+
+            Console.WriteLine(x);
+
+
         }
     }
 }

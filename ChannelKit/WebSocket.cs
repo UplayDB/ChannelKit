@@ -22,33 +22,43 @@ namespace ChannelKit
             _Client.ServerDisconnected += _Client_ServerDisconnected;
             _Client.MessageReceived += _Client_MessageReceived;
         }
+        public void Start()
+        {
+            _Client.Start();
+        }
+
+        public void Stop()
+        {
+            _Client.Stop();
+        }
 
         private void _Client_ServerDisconnected(object? sender, EventArgs e)
         {
-            Console.WriteLine("_Client_ServerDisconnected");
+            Console.WriteLine("Disconnected from Server");
         }
 
         private void _Client_ServerConnected(object? sender, EventArgs e)
         {
-            Console.WriteLine("_Client_ServerConnected");
-        }
-
-
-        public void Start()
-        {
-            _Client.Start();     
+            Console.WriteLine("Connected to Server");
         }
 
         private void _Client_MessageReceived(object? sender, MessageReceivedEventArgs e)
         {
             Console.WriteLine(e.MessageType);
-            Console.WriteLine(BitConverter.ToString(e.Data.ToArray()));
-
-            var x  = UTF8Encoding.UTF8.GetString(e.Data);
-
-            Console.WriteLine(x);
-
-
+            switch (e.MessageType)
+            {   
+                case System.Net.WebSockets.WebSocketMessageType.Text:
+                    var x = UTF8Encoding.UTF8.GetString(e.Data);
+                    Console.WriteLine(x);
+                    break;
+                case System.Net.WebSockets.WebSocketMessageType.Binary:
+                    Console.WriteLine(BitConverter.ToString(e.Data.ToArray()));
+                    break;
+                case System.Net.WebSockets.WebSocketMessageType.Close:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

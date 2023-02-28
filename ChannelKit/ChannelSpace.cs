@@ -5,7 +5,7 @@ namespace ChannelKit
 {
     public class ChannelSpace
     {
-        public static void GetMessages(string token, string session, string channelId, int limit = 1)
+        public static string GetMessages(string token, string session, string channelId, int limit = 1)
         {
             var url = $"https://{Base}/v1/spaces/{SpaceID}/channels/{channelId}/messages?limit={limit}";
             var client = new RestClient(url);
@@ -20,12 +20,12 @@ namespace ChannelKit
             if (response.Content != null)
             {
                 Console.WriteLine(response.StatusCode);
-                Console.WriteLine(response.Content);
+                return response.Content;
             }
-
+            return string.Empty;
         }
 
-        public static void CreateChannel(string token, string session, string channelType, List<string> members)
+        public static string CreateChannel(string token, string session, string channelType, List<string> members)
         {
             var url = $"https://{Base}/v1/spaces/{SpaceID}/channels";
             var client = new RestClient(url);
@@ -43,9 +43,9 @@ namespace ChannelKit
             if (response.Content != null)
             {
                 Console.WriteLine(response.StatusCode);
-                Console.WriteLine(response.Content);
+                return response.Content;
             }
-
+            return string.Empty;
         }
     }
 }

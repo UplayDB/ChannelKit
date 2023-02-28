@@ -1,11 +1,12 @@
 ﻿using System.Text;
-
 using WatsonWebsocket;
 
 namespace ChannelKit
 {
     public class WebSocket
     {
+        public event EventHandler<string> MessageText;
+        public event EventHandler<byte[]> MessageBytes;
         public WatsonWsClient _Client;
         //upc_remote_actions,upc_free_games_updated,upc_shareplay_guest_invite,upc_shareplay_guest_invite_rsp,FRIENDS_STATUS_CHANGED,upc_shareplay_guest_interrupts_session,upc_shareplay_stop_session,wallet-balance-update,upc_channel_metadata_updated,upc_channel_created,upc_channel_membership_deleted,upc_channel_message_created,upc_channel_memberships_created
         public WebSocket(string sessionId,string token)
@@ -50,9 +51,11 @@ namespace ChannelKit
                 case System.Net.WebSockets.WebSocketMessageType.Text:
                     var x = UTF8Encoding.UTF8.GetString(e.Data);
                     Console.WriteLine(x);
+                    MessageText?.Invoke(this,x);
                     break;
                 case System.Net.WebSockets.WebSocketMessageType.Binary:
                     Console.WriteLine(BitConverter.ToString(e.Data.ToArray()));
+                    MessageBytes?.Invoke(this,e.Data.ToArray());
                     break;
                 case System.Net.WebSockets.WebSocketMessageType.Close:
                     break;

@@ -7,7 +7,7 @@ namespace ChannelKit
     public class ChannelProfile
     {
 
-        public static void GetActiveChannels(string token,string session, int PageToken = 0)
+        public static string GetActiveChannels(string token,string session, int PageToken = 0)
         {
             var url = $"https://{Base}/v1/profiles/me/channels?membershipType=ACTIVE&spaceId={SpaceID}";
 
@@ -27,12 +27,12 @@ namespace ChannelKit
             if (response.Content != null)
             {
                 Console.WriteLine(response.StatusCode);
-                Console.WriteLine(response.Content);
+                return response.Content;
             }
-
+            return string.Empty;
         }
 
-        public static void GetPendingChannels(string token, string session)
+        public static string GetPendingChannels(string token, string session)
         {
             var client = new RestClient($"https://{Base}/v1/profiles/me/channels?membershipType=PENDING&spaceId={SpaceID}");
             var request = new RestRequest();
@@ -46,12 +46,12 @@ namespace ChannelKit
             if (response.Content != null)
             {
                 Console.WriteLine(response.StatusCode);
-                Console.WriteLine(response.Content);
+                return response.Content;
             }
-
+            return string.Empty;
         }
 
-        public static void GetMessagesAck(string token, string session, string channelId)
+        public static string GetMessagesAck(string token, string session, string channelId)
         {
             var url = $"https://{Base}/v1/profiles/me/channels/{channelId}/messages/ack?spaceId={SpaceID}";
             var client = new RestClient(url);
@@ -66,9 +66,9 @@ namespace ChannelKit
             if (response.Content != null)
             {
                 Console.WriteLine(response.StatusCode);
-                Console.WriteLine(response.Content);
+                return response.Content;
             }
-
+            return string.Empty;
         }
     }
 }

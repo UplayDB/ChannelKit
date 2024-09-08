@@ -1,6 +1,5 @@
 ﻿using RestSharp;
 using static ChannelKit.ReadOnly;
-using Uplay.Channelservice.V1;
 
 namespace ChannelKit
 {

@@ -5,11 +5,11 @@ namespace ChannelKit
 {
     public class WebSocket
     {
-        public event EventHandler<string> MessageText;
-        public event EventHandler<byte[]> MessageBytes;
+        public event EventHandler<string>? MessageText;
+        public event EventHandler<byte[]>? MessageBytes;
         public WatsonWsClient _Client;
         //upc_remote_actions,upc_free_games_updated,upc_shareplay_guest_invite,upc_shareplay_guest_invite_rsp,FRIENDS_STATUS_CHANGED,upc_shareplay_guest_interrupts_session,upc_shareplay_stop_session,wallet-balance-update,upc_channel_metadata_updated,upc_channel_created,upc_channel_membership_deleted,upc_channel_message_created,upc_channel_memberships_created
-        public WebSocket(string sessionId,string token)
+        public WebSocket(string sessionId, string token)
         {
             string Con = "wss://public-ws-ubiservices.ubi.com/v2/websocket?" +
                 "NotificationTypes=upc_remote_actions,upc_free_games_updated,upc_shareplay_guest_invite,upc_shareplay_guest_invite_rsp,FRIENDS_STATUS_CHANGED,upc_shareplay_guest_interrupts_session,upc_shareplay_stop_session,wallet-balance-update,upc_channel_metadata_updated,upc_channel_created,upc_channel_membership_deleted,upc_channel_message_created,upc_channel_memberships_created" +
@@ -49,9 +49,9 @@ namespace ChannelKit
             switch (e.MessageType)
             {   
                 case System.Net.WebSockets.WebSocketMessageType.Text:
-                    var x = UTF8Encoding.UTF8.GetString(e.Data);
-                    Console.WriteLine(x);
-                    MessageText?.Invoke(this,x);
+                    string data = Encoding.UTF8.GetString(e.Data);
+                    Console.WriteLine(data);
+                    MessageText?.Invoke(this, data);
                     break;
                 case System.Net.WebSockets.WebSocketMessageType.Binary:
                     Console.WriteLine(BitConverter.ToString(e.Data.ToArray()));

@@ -1,15 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+	<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RestSharp" Version="109.0.1" />
-    <PackageReference Include="Uplay-Protobufs" Version="139.2.10843" />
-    <PackageReference Include="WatsonWebsocket" Version="4.0.8" />
+    <PackageReference Include="RestSharp" Version="112.0.0" />
+    <PackageReference Include="WatsonWebsocket" Version="4.1.2" />
   </ItemGroup>
 
 </Project>
